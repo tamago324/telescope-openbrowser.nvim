@@ -1,17 +1,18 @@
 # telescope-openbrowser.nvim
 
-Integration for [openbrowser-vim](https://github.com/tyru/open-browser.vim) with [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
+Integration for [open-browser.vim](https://github.com/tyru/open-browser.vim) with [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
 
 ## Requirements
 
 * [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-* [openbrowser.vim](https://github.com/tyru/open-browser.vim)
+* [open-browser.vim](https://github.com/tyru/open-browser.vim)
 
 
 ## Installation
 
 ```
 Plug 'tamago324/telescope-openbrowser.nvim'
+Plug 'tyru/open-browser.vim'
 
 
 -- Setup

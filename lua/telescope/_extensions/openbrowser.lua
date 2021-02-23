@@ -1,4 +1,5 @@
 local actions = require 'telescope.actions'
+local actions_state = require 'telescope.actions.state'
 local pickers = require 'telescope.pickers'
 local sorters = require 'telescope.sorters'
 local finders = require 'telescope.finders'
@@ -77,8 +78,8 @@ local list = function(opts)
     -- previewer = nil,
     sorter = conf.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr)
-      actions.goto_file_selection_edit:replace(function()
-        local entry = actions.get_selected_entry()
+      actions.select_default:replace(function()
+        local entry = actions_state.get_selected_entry()
         actions.close(prompt_bufnr)
 
         if entry.url:find('{query}') then

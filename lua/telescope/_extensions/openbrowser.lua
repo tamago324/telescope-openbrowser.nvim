@@ -9,16 +9,37 @@ local entry_display = require 'telescope.pickers.entry_display'
 local conf = require'telescope.config'.values
 
 local a = vim.api
+local Path = require'plenary.path'
 
 local bookmarks = {
   -- {
   --   name = url
   -- }
 }
+local bookmark_filepath = vim.fn.stdpath('config') .. '/' .. 'telescope_openbrowser_bookamarks'
 
 -----------------------------
 -- Private
 -----------------------------
+
+local read_bookmark_file = function(path)
+  local p = Path:new(vim.fn.expand(path))
+  if p == nil or not p:exists() then
+    return {}
+  end
+
+  local res = {}
+  for _, line in ipairs(p:readlines()) do
+    -- # がついていたらコメント
+    if not line:match('^%s*#') then
+      local key, val = line:match('^([^\t]+)\t(.*)')
+      if key ~= nil and val ~= nil then
+        res[key] = val
+      end
+    end
+  end
+  return res
+end
 
 -----------------------------
 -- Export
@@ -27,6 +48,8 @@ local list = function(opts)
   opts = opts or {}
 
   local list = vim.tbl_extend('force', vim.g.openbrowser_search_engines or {}, bookmarks)
+  list = vim.tbl_extend('force', list, read_bookmark_file(bookmark_filepath))
+
   local names = {}
   local results = {}
 
@@ -98,6 +121,7 @@ end
 return require'telescope'.register_extension {
   setup = function(ext_config)
     bookmarks = ext_config.bookmarks or {}
+    bookmark_filepath = ext_config.bookmark_filepath or nil
   end,
   exports = {
     list = list

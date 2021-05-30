@@ -23,7 +23,8 @@ lua require 'telescope'.setup {
     openbrowser = {
       bookmarks = {
         ['luv docs'] = 'https://github.com/luvit/luv/blob/master/docs.md',
-      }
+      },
+      bookmark_filepath = '~/config/nvim/telescope_openbrowser_bookamarks'
     }
   }
 }
@@ -43,6 +44,17 @@ or
 Telescope openbrowser list
 ```
 
+## Configuration
+
+Edit `~/.config/nvim/telescope_openbrowser_bookamarks`
+
+```
+luv docs	https://github.com/luvit/luv/blob/master/docs.md
+# this is comment
+```
+
+* Use a tab character to separate the name from the URL
+* Lines beginning with `#` will be ignored
 
 ## License
 

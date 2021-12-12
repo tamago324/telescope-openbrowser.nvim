@@ -71,13 +71,20 @@ local list = function(opts)
   local displayer = entry_display.create {
     separator = " ",
     items = {
+      { width = 1 },
       { width = max_name_width },
       { remaining = true }
     },
   }
 
   local make_display = function(entry)
+    local mark = ' '
+    if string.find(entry.url, "{query}") then
+      mark = '?'
+    end
+
     return displayer {
+      mark,
       entry.name,
       {entry.url, 'Comment'}
     }
